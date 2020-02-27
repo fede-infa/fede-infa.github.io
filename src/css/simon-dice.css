@@ -1,0 +1,22 @@
+
+.botonera {
+    height: 250px;
+    opacity: 0.5;
+    transition: opacity 500ms;
+}
+
+#boton-rojo{
+    background-color: red;
+}
+
+#boton-azul{
+    background-color: blue;
+}
+
+#boton-amarillo{
+    background-color: yellow;
+}
+
+#boton-verde{
+    background-color: green;
+}
