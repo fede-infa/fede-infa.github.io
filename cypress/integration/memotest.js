@@ -12,6 +12,8 @@ z = parametro => {return console.log(parametro)};
 z = parametro => console.log(parametro);
 
 */
+// Comando en comentario para reconocer objeto cy
+/// <reference types="Cypress" />
 
 const URL = '127.0.0.1:8080/memo-test.html';
 const NUMERO_CAJAS = 12;
