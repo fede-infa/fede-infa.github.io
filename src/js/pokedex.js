@@ -6,98 +6,98 @@
 
 let nextUrl = '';
 let previousUrl = '';
+let pokemonUrl = '';
 
 const nextButton = document.querySelector('#next');
 const previousButton = document.querySelector('#previous');
-const $ol = document.querySelector('.pokemon-list');
+const $pokeList = document.querySelector('.pokemon-list');
 
-const apiData = {
+/* const apiData = {
     url: 'https://pokeapi.co/api/v2/',
     type: 'pokemon',
     id: ''
 }
 
-const {url, type, id} = apiData;
-let apiUrl = `${url}${type}${id}`;
-let pokemonInfo = {};
+const {url, type, id} = apiData; */
+let apiUrl = 'https://pokeapi.co/api/v2/pokemon';
 
-async function requestApi(apiUrl){
-    fetch (apiUrl)
+// https: //pokeapi.co/api/v2/pokemon
+
+async function requestApi(apiURL){
+    fetch(apiURL)
     .then( response => response.json() )
-    .then( response => generateHtml(response));
-} 
-
-
-
-async function generateHtml (response) {
-
-    console.log(response);
-    nextUrl = response.next;
-    previousUrl = response.previous;
-    response.results.forEach( (pokemon, i) =>{
-
-        const newLi = document.createElement('li');
-        const liContent = document.createTextNode(pokemon.name);
-
-        console.log(`prueba ${i}`);
-
-        newLi.appendChild(liContent);
-        $ol.appendChild(newLi);
+    .then( response => {
+        nextUrl = response.next;
+        previousUrl = response.previous;
+        return response;
+    } )
+    .then( response => {
+        response.results.forEach( pokemon => {
+            generarPokemones(pokemon);
+        })
     });
 } 
 
-
-document.querySelector('#previous').onclick = () =>{
-    const response = requestApi(previousUrl);
-    $("#pokelist").empty();
-    generateHtml(response);
+function generarPokemones(pokemon) {
+    let pokemonUrl = pokemon.url // Me guardo la url de cada pokemon en esta variable.
+    fetch(pokemonUrl)
+        .then(response => response.json())
+        .then(function (pokeData) {
+            getPokemon(pokeData);
+        })
 }
 
-document.querySelector('#next').onclick = () =>{
-    const response = requestApi(nextUrl);
-    $("#pokelist").empty();
-    generateHtml(response);
+function getPokemon(pokeData) {
+    let allPokemonContainer = document.getElementById('pokelist');
+    let pokeContainer = document.createElement("div")
+    pokeContainer.classList.add('col-2','ui', 'card');
+
+    createPokemonImage(pokeData.id, pokeContainer);
+
+    let pokeName = document.createElement('h4')
+    pokeName.innerText = pokeData.name
+
+    let pokeNumber = document.createElement('p')
+    pokeNumber.innerText = `#${pokeData.id}`
+
+    let pokeTypes = document.createElement('ul')
+
+    getPokemonTypes(pokeData.types, pokeTypes)
+
+    pokeContainer.append(pokeName, pokeNumber, pokeTypes);
+    allPokemonContainer.appendChild(pokeContainer);
 }
 
+function createPokemonImage(pokemonID, htmlContainer) {
+    const imageContainer = document.createElement('div');
+    imageContainer.classList.add('image');
 
-requestApi(apiUrl);
+    const pokemonImage = document.createElement('img');
+    pokemonImage.srcset = `https://pokeres.bastionbot.org/images/pokemon/${pokemonID}.png`
 
-
-
-
-/* 
-function getPokemonList(url){
-    fetch(url)
-        .then( response => response.json())
-        .then( response => addPokemonToList(response))
-        .catch( error => console.error('Fallo', error) );
+    imageContainer.append(pokemonImage);
+    htmlContainer.append(imageContainer);
 }
 
-function getPokemonById(name){
-    fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
-        .then( response => response)
-        .then( response => console.log(response))
-        .catch( error => console.error('Fallo', error));
-};
-
-
-function addPokemonToList(pokemons){
-    console.log(pokemons);
-    pokemons.results.forEach( (pokemon) => {
-        const $ol = document.querySelector('#pokemon-list');
-        const newLi = document.createElement('li');
-        const liContent = document.createTextNode(pokemon.name)
-
-        let imagePokemon = getPokemonById(pokemon.name); //Bug, no me guarda ninguna informacion en la variable
-        console.log(imagePokemon);
-
-        const newImage = document.createElement('img');
-        // newImage.src = imagePokemon.sprites.front_default;
-        newLi.appendChild(liContent)
-        $ol.appendChild(newLi)
-        $ol.appendChild(newImage)
+function getPokemonTypes(types, ul) {
+    types.forEach(function (type) {
+        let typeLi = document.createElement('li');
+        typeLi.innerText = type['type']['name'];
+        ul.append(typeLi)
     })
 }
 
-getPokemonList();
- */
+
+document.querySelector('#previous').onclick = () =>{
+    if (previousUrl) {
+        requestApi(previousUrl);
+        $("#pokelist").empty();
+    }
+}
+
+document.querySelector('#next').onclick = () =>{
+    requestApi(nextUrl);
+    $("#pokelist").empty();
+}
+
+requestApi(apiUrl);
