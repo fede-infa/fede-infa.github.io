@@ -42,30 +42,27 @@ function generarPokemones(pokemon) {
     let pokemonUrl = pokemon.url // Me guardo la url de cada pokemon en esta variable.
     fetch(pokemonUrl)
         .then(response => response.json())
-        .then(function (pokeData) {
-            getPokemon(pokeData);
+        .then(function (pokemon) {
+            getPokemon(pokemon);
         })
 }
 
-function getPokemon(pokeData) {
-    let allPokemonContainer = document.getElementById('pokelist');
+function getPokemon(pokemon) {
+    let allPokemonsContainer = document.querySelector('#pokelist');
     let pokeContainer = document.createElement("div")
-    pokeContainer.classList.add('col-2','ui', 'card');
+    pokeContainer.classList.add('col-2','card');
 
-    createPokemonImage(pokeData.id, pokeContainer);
+    createPokemonImage(pokemon.id, pokeContainer);
 
     let pokeName = document.createElement('h4')
-    pokeName.innerText = pokeData.name
-
-    let pokeNumber = document.createElement('p')
-    pokeNumber.innerText = `#${pokeData.id}`
+    pokeName.innerText = `#${pokemon.id} - ${pokemon.name}`
 
     let pokeTypes = document.createElement('ul')
 
-    getPokemonTypes(pokeData.types, pokeTypes)
+    getPokemonTypes(pokemon.types, pokeTypes)
 
-    pokeContainer.append(pokeName, pokeNumber, pokeTypes);
-    allPokemonContainer.appendChild(pokeContainer);
+    pokeContainer.append(pokeName, pokeTypes);
+    allPokemonsContainer.appendChild(pokeContainer);
 }
 
 function createPokemonImage(pokemonID, htmlContainer) {
