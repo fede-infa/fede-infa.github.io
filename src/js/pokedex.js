@@ -43,18 +43,24 @@ function createPokemons(pokemon) {
 function getPokemon(pokemon) {
     let allPokemonsContainer = document.querySelector('#pokelist');
     let pokeContainer = createNode("div")
-    pokeContainer.classList.add('col-md-2','card');
+    pokeContainer.classList.add('card', 'col-sm-6', 'col-lg-4', 'text-capitalize');
     pokeContainer.id = `${pokemon.id}`;
 
     createPokemonImage(pokemon.id, pokeContainer);
+    
+    let pokeID = createNode('h4')
+    pokeID.innerText = `#${pokemon.id}`
 
-    let pokeName = createNode('h4')
-    pokeName.innerText = `#${pokemon.id} - ${pokemon.name}`
+    let pokeName = createNode('h5')
+    pokeName.innerText = `${pokemon.name}`
+
+    
 
     let pokeTypes = createNode('ul')
 
     getPokemonTypes(pokemon.types, pokeTypes)
     
+    append(pokeContainer, pokeID);
     append(pokeContainer, pokeName);
     append(pokeContainer, pokeTypes);
 
@@ -105,7 +111,7 @@ document.querySelector('#searchButton').addEventListener('click', function(e){
         .then( response => response.json() )
         .then( response => searchPokemon(response) )
         .catch( e => {
-            console.log(e);
+            alert(`No se encontro un pokemon con el nombre ${buscarPokemon}`);
         } )
     }
 }, false);
@@ -135,4 +141,8 @@ function searchPokemon(pokemon){
 
     getPokemonTypes(pokemon.types, $pokemonType);    
     createPokemonImage(pokemon.id, $pokemonImage);
+}
+
+$pokeList.onclick = (e) => {
+    console.log(e.path[2]);
 }
