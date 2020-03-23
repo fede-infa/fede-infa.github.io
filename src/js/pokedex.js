@@ -76,9 +76,9 @@ function createPokemonImage(pokemonID, htmlContainer) {
 
 function getPokemonTypes(types, ul) {
     types.forEach(function (type) {
-        let typeLi = document.createElement('li');
+        const typeLi = createNode('li');
         typeLi.innerText = type['type']['name'];
-        ul.append(typeLi)
+        append(ul, typeLi);
     })
 }
 
@@ -97,12 +97,33 @@ document.querySelector('#next').onclick = () =>{
 
 requestApi(apiUrl);
 
-$pokeList.addEventListener('click', function(e){
-    if (e.path[2].id != 0) {
-        fetch(`https://pokeapi.co/api/v2/pokemon/${e.path[2].id}`)
-            .then( response => response.json() )
-            .then( response => console.log(response) )
+document.querySelector('#searchButton').addEventListener('click', function(e){
+    const buscarPokemon = document.querySelector('#inputPokemon').value.toLowerCase();
+    if(buscarPokemon){
 
+        fetch(`https://pokeapi.co/api/v2/pokemon/${buscarPokemon}`)
+        .then( response => response.json() )
+        .then( response => searchPokemon(response) )
+        .catch( e => {
+            console.log(e);
+        } )
     }
-
 }, false);
+
+
+function searchPokemon(pokemon){
+    const $pokemonID = document.querySelector('#pokemon-id'),
+        $pokemonName = document.querySelector('#pokemon-name'),
+        $pokemonType = document.querySelector('#pokemon-type');
+
+    console.log(pokemon);
+    const $hiddenDivs = document.querySelectorAll('.hidden');
+    $hiddenDivs.forEach( div => {
+        div.classList.remove('hidden');
+    })
+    $pokemonID.textContent = pokemon.id;
+    $pokemonName.textContent = pokemon.name;
+    console.log($pokemonType)
+
+    getPokemonTypes(pokemon.types, $pokemonType);    
+}
