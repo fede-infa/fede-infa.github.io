@@ -112,9 +112,17 @@ document.querySelector('#searchButton').addEventListener('click', function(e){
 
 
 function searchPokemon(pokemon){
-    const $pokemonID = document.querySelector('#pokemon-id'),
+    let $pokemonID = document.querySelector('#pokemon-id'),
         $pokemonName = document.querySelector('#pokemon-name'),
-        $pokemonType = document.querySelector('#pokemon-type');
+        $pokemonType = document.querySelector('#pokemon-type'),
+        $pokemonImage = document.querySelector('#pokemon-image');
+    
+    $pokemonID.textContent = '';
+    $pokemonName.textContent = '';
+    $pokemonType.innerHTML = '';
+    $pokemonImage.innerHTML = '';
+
+
 
     console.log(pokemon);
     const $hiddenDivs = document.querySelectorAll('.hidden');
@@ -126,4 +134,5 @@ function searchPokemon(pokemon){
     console.log($pokemonType)
 
     getPokemonTypes(pokemon.types, $pokemonType);    
+    createPokemonImage(pokemon.id, $pokemonImage);
 }
