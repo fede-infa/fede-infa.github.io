@@ -1,12 +1,51 @@
-
-.card{
-
+body{
+    background-image: url(../images/pokedexBackground.jpg);
+    background-size: cover;
 }
 .card:hover {
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25) inset, 0 10px 10px rgba(0, 0, 0, 0.22) inset;
+    box-shadow: 0 14px 28px red inset, 0 10px 10px red inset;
 }
 
 img{
     max-width: 100%;
     height: auto;
+}
+
+.card{
+    max-width: 20%;
+    max-height: 20%;
+}
+
+.botones{
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+
+.navegar{
+    margin: 0 5em;
+    background-color: white;
+    color: black;
+    padding: 1em 2em;
+    border-radius: 2em;
+    font-weight: bold;
+    box-shadow: 0 5px 0 darkred;
+
+
+}
+
+.navegar:hover{
+    cursor: pointer;
+    background-color: rgb(163, 142, 142);
+}
+
+
+
+.form{
+    border: 5px solid black;
+    background-color: #C12026;
+}
+
+.hidden{
+    display: none;
 }

@@ -1,68 +1,66 @@
-/// <reference types="jquery" />
 
-// const ALL_POKEMONS = {};
-// let url = 'https://pokeapi.co/api/v2/pokemon';
-// let nextUrl = null;
+let nextUrl = '',
+    previousUrl = '',
+    pokemonUrl = '',
+    $pokeList = document.querySelector('#pokelist'),
+    $allPokemonDivs = '',
+    apiUrl = 'https://pokeapi.co/api/v2/pokemon';
 
-let nextUrl = '';
-let previousUrl = '';
-let pokemonUrl = '';
+const nextButton = document.querySelector('#next'),
+    previousButton = document.querySelector('#previous');
 
-const nextButton = document.querySelector('#next');
-const previousButton = document.querySelector('#previous');
-const $pokeList = document.querySelector('.pokemon-list');
 
-/* const apiData = {
-    url: 'https://pokeapi.co/api/v2/',
-    type: 'pokemon',
-    id: ''
+function createNode(element){
+    return document.createElement(element);
 }
 
-const {url, type, id} = apiData; */
-let apiUrl = 'https://pokeapi.co/api/v2/pokemon';
+function append(parent, element){
+    return parent.appendChild(element);
+}
 
-// https: //pokeapi.co/api/v2/pokemon
 
-async function requestApi(apiURL){
+function requestApi(apiURL){
     fetch(apiURL)
     .then( response => response.json() )
     .then( response => {
         nextUrl = response.next;
         previousUrl = response.previous;
-        return response;
-    } )
-    .then( response => {
         response.results.forEach( pokemon => {
-            generarPokemones(pokemon);
-        })
-    });
+            createPokemons(pokemon);
+        });
+    })
 } 
 
-function generarPokemones(pokemon) {
+function createPokemons(pokemon) {
     let pokemonUrl = pokemon.url // Me guardo la url de cada pokemon en esta variable.
     fetch(pokemonUrl)
         .then(response => response.json())
         .then(function (pokemon) {
             getPokemon(pokemon);
-        })
+        });
 }
 
 function getPokemon(pokemon) {
     let allPokemonsContainer = document.querySelector('#pokelist');
-    let pokeContainer = document.createElement("div")
-    pokeContainer.classList.add('col-2','card');
+    let pokeContainer = createNode("div")
+    pokeContainer.classList.add('col-md-2','card');
+    pokeContainer.id = `${pokemon.id}`;
 
     createPokemonImage(pokemon.id, pokeContainer);
 
-    let pokeName = document.createElement('h4')
+    let pokeName = createNode('h4')
     pokeName.innerText = `#${pokemon.id} - ${pokemon.name}`
 
-    let pokeTypes = document.createElement('ul')
+    let pokeTypes = createNode('ul')
 
     getPokemonTypes(pokemon.types, pokeTypes)
+    
+    append(pokeContainer, pokeName);
+    append(pokeContainer, pokeTypes);
 
-    pokeContainer.append(pokeName, pokeTypes);
-    allPokemonsContainer.appendChild(pokeContainer);
+    append(allPokemonsContainer, pokeContainer);
+
+    return pokemon;
 }
 
 function createPokemonImage(pokemonID, htmlContainer) {
@@ -98,3 +96,13 @@ document.querySelector('#next').onclick = () =>{
 }
 
 requestApi(apiUrl);
+
+$pokeList.addEventListener('click', function(e){
+    if (e.path[2].id != 0) {
+        fetch(`https://pokeapi.co/api/v2/pokemon/${e.path[2].id}`)
+            .then( response => response.json() )
+            .then( response => console.log(response) )
+
+    }
+
+}, false);
