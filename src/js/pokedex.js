@@ -147,9 +147,24 @@ function searchPokemon(pokemon){
     })
     $pokemonID.textContent = pokemon.id;
     $pokemonName.textContent = pokemon.name;
-    console.log($pokemonType)
 
     getPokemonTypes(pokemon.types, $pokemonType);    
     createPokemonImage(pokemon.id, $pokemonImage);
 }
 
+$pokeList.addEventListener('click', e => {
+    let buscarPokemon = '';
+    e.path.forEach( array => {
+        if( array.id > 0){
+            buscarPokemon = array.id;
+            return buscarPokemon
+        }
+    });
+    fetch(`https://pokeapi.co/api/v2/pokemon/${buscarPokemon}`)
+    .then( response => response.json())
+    .then( response => searchPokemon(response))
+    .catch( e => {
+        alert(`No se encontro un pokemon con el nombre ${buscarPokemon}`)
+    })
+   
+});
