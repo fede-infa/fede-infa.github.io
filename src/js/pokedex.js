@@ -109,9 +109,12 @@ document.querySelector('#searchButton').addEventListener('click', function(e){
 
         fetch(`https://pokeapi.co/api/v2/pokemon/${buscarPokemon}`)
         .then( response => response.json() )
-        .then( response => searchPokemon(response) )
+        .then( response => {
+            searchPokemon(response)
+            hideError();
+        })
         .catch( e => {
-            alert(`No se encontro un pokemon con el nombre ${buscarPokemon}`);
+            showError();
         });
     }
 }, false);
@@ -119,11 +122,16 @@ document.querySelector('#searchButton').addEventListener('click', function(e){
 document.querySelector("#inputPokemon").addEventListener("keyup", e => {
     const buscarPokemon = document.querySelector('#inputPokemon').value.toLowerCase();
     if( e.keyCode === 13){
+        const errorText = document.querySelector('.error-text')
+        errorText.classList.add('hidden');
         fetch(`https://pokeapi.co/api/v2/pokemon/${buscarPokemon}`)
         .then( response => response.json())
-        .then( response => searchPokemon(response))
+        .then( response => {
+            searchPokemon(response);
+            hideError();
+        })
         .catch( e => {
-            alert(`No se encontro un pokemon con el nombre ${buscarPokemon}`)
+            showError();
         })
 
         }
@@ -131,6 +139,8 @@ document.querySelector("#inputPokemon").addEventListener("keyup", e => {
 
 
 function searchPokemon(pokemon){
+
+
     let $pokemonID = document.querySelector('#pokemon-id'),
         $pokemonName = document.querySelector('#pokemon-name'),
         $pokemonType = document.querySelector('#pokemon-type'),
@@ -156,15 +166,36 @@ $pokeList.addEventListener('click', e => {
     let buscarPokemon = '';
     e.path.forEach( array => {
         if( array.id > 0){
+            const errorText = document.querySelector('.error-text')
+            errorText.classList.add('hidden');
             buscarPokemon = array.id;
             return buscarPokemon
         }
     });
     fetch(`https://pokeapi.co/api/v2/pokemon/${buscarPokemon}`)
     .then( response => response.json())
-    .then( response => searchPokemon(response))
+    .then( response => {
+        searchPokemon(response);
+        hideError();
+    })
     .catch( e => {
-        alert(`No se encontro un pokemon con el nombre ${buscarPokemon}`)
+        showError();
     })
    
 });
+
+function showError(){
+    const $inputPokemon = document.querySelector('#inputPokemon'),
+        $searchDiv = document.querySelector('#searchDiv');
+    let errorText = document.querySelector('.error-text')
+
+    errorText.textContent = `No se encontro el pokemon ingresado`;
+    errorText.classList.remove('hidden');
+    $inputPokemon.classList.add('error-message');
+}
+
+function hideError(){
+    const errorText = document.querySelector('#errorText')
+    errorText.classList.add( 'error-text','hidden');
+    console.log(errorText);
+}

@@ -8,7 +8,7 @@ ul{
     list-style-type: none;
 }
 .card:hover {
-    box-shadow: 0 14px 28px red inset, 0 10px 10px red inset;
+    box-shadow: 0 14px 28px rgb(170, 170, 170) inset, 0 10px 10px rgb(170, 170, 170) inset;
 }
 
 img{
@@ -71,4 +71,17 @@ button{
     font: inherit;
     cursor: pointer;
     outline: inherit;
+}
+
+.error-message{
+    background-color: #fce4e4;
+}
+
+.error-text {
+    color: #ffffff;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 20px;
+    text-shadow: 1px 1px rgba(250, 250, 250, .3);
 }
