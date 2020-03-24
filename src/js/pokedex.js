@@ -112,9 +112,22 @@ document.querySelector('#searchButton').addEventListener('click', function(e){
         .then( response => searchPokemon(response) )
         .catch( e => {
             alert(`No se encontro un pokemon con el nombre ${buscarPokemon}`);
-        } )
+        });
     }
 }, false);
+
+document.querySelector("#inputPokemon").addEventListener("keyup", e => {
+    const buscarPokemon = document.querySelector('#inputPokemon').value.toLowerCase();
+    if( e.keyCode === 13){
+        fetch(`https://pokeapi.co/api/v2/pokemon/${buscarPokemon}`)
+        .then( response => response.json())
+        .then( response => searchPokemon(response))
+        .catch( e => {
+            alert(`No se encontro un pokemon con el nombre ${buscarPokemon}`)
+        })
+
+        }
+    })
 
 
 function searchPokemon(pokemon){
@@ -128,9 +141,6 @@ function searchPokemon(pokemon){
     $pokemonType.innerHTML = '';
     $pokemonImage.innerHTML = '';
 
-
-
-    console.log(pokemon);
     const $hiddenDivs = document.querySelectorAll('.hidden');
     $hiddenDivs.forEach( div => {
         div.classList.remove('hidden');
@@ -143,6 +153,3 @@ function searchPokemon(pokemon){
     createPokemonImage(pokemon.id, $pokemonImage);
 }
 
-$pokeList.onclick = (e) => {
-    console.log(e.path[2]);
-}
