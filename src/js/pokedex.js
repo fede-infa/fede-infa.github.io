@@ -189,7 +189,7 @@ function showError(){
         $searchDiv = document.querySelector('#searchDiv');
     let errorText = document.querySelector('.error-text')
 
-    errorText.textContent = `No se encontro el pokemon ingresado`;
+    errorText.textContent = `No se encontró el pokemon ingresado`;
     errorText.classList.remove('hidden');
     $inputPokemon.classList.add('error-message');
 }
