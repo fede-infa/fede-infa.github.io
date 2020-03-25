@@ -1,4 +1,4 @@
-.leftside, .rightside {
+/* .leftside, .rightside {
     height: 100vh;
     width: 100%;
 }
@@ -9,4 +9,8 @@
 
 .rightside{
     background-color: blue;
+} */
+
+body{
+    background-image: url(../images/background2.jpeg);
 }
