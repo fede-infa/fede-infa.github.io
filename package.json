@@ -21,7 +21,7 @@
   "homepage": "https://github.com/fede-infa/simon-dice#readme",
   "dependencies": {
     "bootstrap": "^4.4.1",
-    "jquery": "^3.4.1"
+    "jquery": "^3.5.0"
   },
   "devDependencies": {
     "@types/jquery": "^3.3.33",
