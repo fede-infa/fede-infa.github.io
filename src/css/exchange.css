@@ -1,0 +1,8 @@
+.validation {
+    color: red;
+    margin-bottom: 20px;
+}
+
+.hidden{
+    visibility: hidden;
+}
