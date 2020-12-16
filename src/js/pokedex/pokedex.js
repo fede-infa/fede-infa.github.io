@@ -40,18 +40,21 @@ function createPokemons(pokemon) {
         });
 }
 
+
 function getPokemon(pokemon) {
     let allPokemonsContainer = document.querySelector('#pokelist');
     let pokeContainer = createNode("div")
-    pokeContainer.classList.add('card', 'col-sm-6', 'col-lg-4', 'text-capitalize');
+    pokeContainer.classList.add('col-6', 'col-md-2','col-lg-2', 'card', 'text-capitalize');
     pokeContainer.id = `${pokemon.id}`;
 
     createPokemonImage(pokemon.id, pokeContainer);
     
     let pokeID = createNode('h4')
+    pokeID.classList.add('card-text')
     pokeID.innerText = `#${pokemon.id}`
-
+    
     let pokeName = createNode('h5')
+    pokeName.classList.add('card-text')
     pokeName.innerText = `${pokemon.name}`
 
     
@@ -84,6 +87,7 @@ function getPokemonTypes(types, ul) {
     types.forEach(function (type) {
         const typeLi = createNode('li');
         typeLi.innerText = type['type']['name'];
+        typeLi.classList.add('card-text')
         append(ul, typeLi);
     })
 }
