@@ -4,7 +4,7 @@
   "description": "Juego simon dice",
   "main": "index.html",
   "scripts": {
-    "start": "http-server", 
+    "start": "http-server",
     "test": "echo \"Error: no test specified\" && exit 1",
     "cypress-dev": "cypress open",
     "cypress-run": "cypress run"
@@ -21,10 +21,12 @@
   "homepage": "https://github.com/fede-infa/simon-dice#readme",
   "dependencies": {
     "bootstrap": "^4.4.1",
-    "jquery": "^3.4.1"
+    "jquery": "^3.5.1",
+    "materialize-css": "^1.0.0-rc.2"
   },
   "devDependencies": {
     "@types/jquery": "^3.3.33",
-    "cypress": "^4.0.2"
+    "cypress": "^5.4.0",
+    "eslint": "^7.11.0"
   }
 }

@@ -3,7 +3,7 @@ ul{
     list-style-type: none;
 }
 .card:hover {
-    box-shadow: 0 14px 28px rgb(170, 170, 170) inset, 0 10px 10px rgb(170, 170, 170) inset;
+    box-shadow: 0 14px 28px rgb(242, 122, 122) inset, 0 10px 10px rgb(170, 170, 170) inset;
 }
 
 img{
