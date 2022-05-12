@@ -1,17 +1,3 @@
-/* 
-Arrow function
-
-x =  function (parametro){ cuerpo de la funcion}; //Funcion comun
-
-y = (parametro1) => {cuerpo de la funcion }; //Arrow function
-z = parametro => { console.log(parametro) }
-
-
-Si no se escriben las {}, es equivalente
-z = parametro => {return console.log(parametro)};
-z = parametro => console.log(parametro);
-
-*/
 // Comando en comentario para reconocer objeto cy
 /// <reference types="Cypress" />
 

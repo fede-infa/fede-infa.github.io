@@ -1,0 +1,49 @@
+.aside{
+    background-color: rgb(44,44,44);
+}
+
+.main{
+    background-color: rgb(255,255,255);
+}
+
+.profile-photo{
+    border-radius: 50%;
+    width: 50%;
+}
+
+h1{
+    font-family: 'Lato', sans-serif;
+}
+
+h2{
+    font-family: 'Lato', sans-serif;
+}
+
+i{
+    color: white;
+}
+span{
+    color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 400;
+}
+
+.main h2{
+    color: black;
+}
+
+.barra{
+    height: 15px;
+    background-color: aqua;
+    width: 55%;
+    border-bottom-right-radius: 10px;
+}
+
+ul{
+    list-style: none;
+    padding-left: 0;
+}
+
+.padding-0{
+    padding: 0;
+}

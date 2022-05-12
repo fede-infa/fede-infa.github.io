@@ -1,0 +1,40 @@
+.oculto{
+    display: none;
+}
+
+.completo{
+    opacity: 0.5;
+}
+
+.cajas {
+    height: 33vh;
+    background-color: black;
+}
+
+.negro{
+    background-color: black !important;
+}
+
+.rojo{
+    background-color: red;
+}
+
+.azul{
+    background-color: blue;
+}
+
+.verde{
+    background-color: green;
+}
+
+.violeta{
+    background-color: purple;
+}
+
+.amarillo{
+    background-color: yellow;
+}
+
+.naranja{
+    background-color: orange;
+}
